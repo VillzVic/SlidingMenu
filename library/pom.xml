@@ -15,9 +15,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.google.android</groupId>
-            <artifactId>support-v4</artifactId>
-            <version>r7</version>
+            <groupId>android.support</groupId>
+            <artifactId>compatibility-v13</artifactId>
+            <version>r9</version>
         </dependency>
 
         <dependency>
