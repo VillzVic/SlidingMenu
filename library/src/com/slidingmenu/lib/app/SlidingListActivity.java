@@ -7,9 +7,10 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ListView;
 
+import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockListActivity;
 import com.slidingmenu.lib.SlidingMenu;
 
-public class SlidingListActivity extends ListActivity implements SlidingActivityBase {
+public class SlidingListActivity extends RoboSherlockListActivity implements SlidingActivityBase {
 
 	private SlidingActivityHelper mHelper;
 
