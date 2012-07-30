@@ -9,6 +9,10 @@ bin/
 bin
 gen/
 gen
+library/target
+library/.idea
+library/gen-external-apklibs
+*.iml
 .metadata/
 .metadata
 *.project

@@ -3,8 +3,7 @@ SlidingMenu
 
 A sample Android project to explore creating slide-in menus like in the Spotify and Facebook applications. 
 You can use it all you want in your Android apps provided that you cite this project and include the 
-license in your app. Also, remember to include the [ActionBarSherlock][2] license if you choose to use the
-provided ActionBar.
+license in your app.
 
 Here's a recent video of the example application in this repository : http://youtu.be/8vNaANLHw-c
 
@@ -15,6 +14,13 @@ Setup
 * In Eclipse, just import the library as an Android library project. Project > Clean to generate the binaries 
 you need, like R.java, etc.
 * Then, just add SlidingMenu as a dependency to your existing project and you're good to go!
+
+Setup with ActionBarSherlock
+----------------------------
+* Setup as above.
+* Checkout a clean copy of [ActionBarSherlock][2] and import into your Eclipse workspace.
+* Add ActionBarSherlock as a dependency to SlidingMenu
+* Go into the SlidingActivities that you plan on using make them extend Sherlock___Activity instead of ___Activity. 
 
 How to Integrate this Library into Your Projects
 ------------------------------------------------
@@ -63,7 +69,7 @@ behind view is showing. Default is 0.
 * `behindScrollScale` - a float representing the relationship between the above view scrolling and the behind
 behind view scrolling. If set to 0.5f, the behind view will scroll 1px for every 2px that the above view scrolls.
 If set to 1.0f, the behind view will scroll 1px for every 1px that the above view scrolls. And if set to 0.0f, the
-behind view will never scroll; it will be static. This one is fun to play around with. Default is 0.
+behind view will never scroll; it will be static. This one is fun to play around with. Default is 0.25f.
 * `shadowDrawable` - a reference to a drawable to be used as a drop shadow from the above view onto the below view.
 Default is no shadow for now.
 * `shadowWidth` - a dimension representing the width of the shadow drawable. Default is 0.

@@ -1,6 +1,8 @@
 package com.slidingmenu.lib;
 
-//import android.annotation.SuppressLint;
+import com.slidingmenu.lib.CustomViewAbove.OnPageChangeListener;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
@@ -22,6 +24,17 @@ public class SlidingMenu extends RelativeLayout {
 
 	private CustomViewAbove mViewAbove;
 	private CustomViewBehind mViewBehind;
+	
+	private OnOpenListener mOpenListener;
+	private OnCloseListener mCloseListener;
+	
+	public interface OnOpenListener {
+		public void onOpen();
+	}
+	
+	public interface OnCloseListener {
+		public void onClose();
+	}
 
 	public SlidingMenu(Context context) {
 		this(context, null);
@@ -42,6 +55,18 @@ public class SlidingMenu extends RelativeLayout {
 		addView(mViewAbove, aboveParams);
 		// register the CustomViewBehind2 with the CustomViewAbove
 		mViewAbove.setCustomViewBehind2(mViewBehind);
+		mViewAbove.setOnPageChangeListener(new OnPageChangeListener() {
+			public void onPageScrolled(int position, float positionOffset,
+					int positionOffsetPixels) { }
+			public void onPageScrollStateChanged(int state) { }
+			public void onPageSelected(int position) {
+				if (position == 0 && mOpenListener != null) {
+					mOpenListener.onOpen();
+				} else if (position == 1 && mCloseListener != null) {
+					mCloseListener.onClose();
+				}
+			}			
+		});
 
 		// now style everything!
 		TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.SlidingMenu);
@@ -236,6 +261,14 @@ public class SlidingMenu extends RelativeLayout {
 	public void setFadeDegree(float f) {
 		mViewAbove.setBehindFadeDegree(f);
 	}
+	
+	public void setOnOpenListener(OnOpenListener listener) {
+		mOpenListener = listener;
+	}
+	
+	public void setOnCloseListener(OnCloseListener listener) {
+		mCloseListener = listener;
+	}
 
 	public static class SavedState extends BaseSavedState {
 		boolean mBehindShowing;
@@ -300,9 +333,7 @@ public class SlidingMenu extends RelativeLayout {
 
 	private static final int HIGH_DPI_STATUS_BAR_HEIGHT = 38;
 
-	//@SuppressLint("NewApi")
-	@Override
-	public void setFitsSystemWindows(boolean b) {
+	public void setFitsSysWindows(boolean b) {
 		if (Build.VERSION.SDK_INT >= 14) {
 			super.setFitsSystemWindows(b);
 		} else {
