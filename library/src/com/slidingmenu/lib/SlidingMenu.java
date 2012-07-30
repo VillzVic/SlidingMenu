@@ -1,8 +1,6 @@
 package com.slidingmenu.lib;
 
 import com.slidingmenu.lib.CustomViewAbove.OnPageChangeListener;
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
