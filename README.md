@@ -1,11 +1,15 @@
 SlidingMenu
 ===========
 
-A sample Android project to explore creating slide-in menus like in the Spotify and Facebook applications. 
-You can use it all you want in your Android apps provided that you cite this project and include the 
-license in your app.
+An Android library that allows developers to easily create slide-in menus like in the Spotify and 
+Facebook applications. Feel free to use it all you want in your Android apps provided that you cite 
+this project and include the license in your app.
 
-Here's a recent video of the example application in this repository : http://youtu.be/8vNaANLHw-c
+SlidingMenu is currently used in some incredibly popular Android apps such as [Zappos][3], [Plume][4], 
+[VLC for Android][5], and [The Verge][6]. If you are using SlidingMenu in your app and would like to be listed here, 
+please let me know via [Twitter][1]!
+
+Here's an older video of the example application in this repository : http://youtu.be/8vNaANLHw-c
 
 Also, you can follow the project on Twitter : [@SlidingMenu][1]
 
@@ -53,10 +57,16 @@ If you decide to use SlidingMenu as a view, you can define it in your xml layout
     sliding:touchModeAbove="margin|fullscreen"
     sliding:touchModeBehind="margin|fullscreen"
     sliding:behindOffset="@dimen/YOUR_OFFSET"
+    sliding:behindWidth="@dimen/YOUR_WIDTH"
     sliding:behindScrollScale="@dimen/YOUR_SCALE"
     sliding:shadowDrawable="@drawable/YOUR_SHADOW"
-    sliding:shadowWidth="@dimen/YOUR_SHADOW_WIDTH" />
+    sliding:shadowWidth="@dimen/YOUR_SHADOW_WIDTH"
+    sliding:fadeEnabled="true|false"
+    sliding:fadeDegree="float"
+    sliding:selectorEnabled="true|false"
+    sliding:selectorDrawable="@drawable/YOUR_SELECTOR"/>
 ```
+NOTE : you cannot use both behindOffset and behindWidth. You will get an exception if you try.
 * `viewAbove` - a reference to the layout that you want to use as the above view of the SlidingMenu
 * `viewBehind` - a reference to the layout that you want to use as the behind view of the SlidingMenu
 * `touchModeAbove` - an enum that designates what part of the screen is touchable when the above view is 
@@ -66,6 +76,8 @@ is showing. Margin means only what is showing of the above view. Fullscreen mean
 Default is margin.
 * `behindOffset` - a dimension representing the number of pixels that you want the above view to show when the
 behind view is showing. Default is 0.
+* `behindWidth` - a dimension representing the width of the behind view. Default is the width of the screen
+(equivalent to behindOffset = 0).
 * `behindScrollScale` - a float representing the relationship between the above view scrolling and the behind
 behind view scrolling. If set to 0.5f, the behind view will scroll 1px for every 2px that the above view scrolls.
 If set to 1.0f, the behind view will scroll 1px for every 1px that the above view scrolls. And if set to 0.0f, the
@@ -73,6 +85,15 @@ behind view will never scroll; it will be static. This one is fun to play around
 * `shadowDrawable` - a reference to a drawable to be used as a drop shadow from the above view onto the below view.
 Default is no shadow for now.
 * `shadowWidth` - a dimension representing the width of the shadow drawable. Default is 0.
+* `fadeEnabled` - a boolean representing whether or not the behind view should fade when the SlidingMenu is closing
+and "un-fade" when opening
+* `fadeDegree` - a float representing the "amount" of fade. `1.0f` would mean fade all the way to black when the
+SlidingMenu is closed. `0.0f` would mean do not fade at all.
+* `selectorEnabled` - a boolean representing whether or not a selector should be drawn on the left side of the above
+view showing a selected view on the behind view.
+* `selectorDrawable` - a reference to a drawable to be used as the selector
+NOTE : in order to have the selector drawn, you must call SlidingMenu.setSelectedView(View v) with the selected view.
+Note that this will most likely not work with items in a ListView because of the way that Android recycles item views.
 
 Caveats
 -------
@@ -102,3 +123,7 @@ License
     
 [1]: http://twitter.com/slidingmenu
 [2]: http://actionbarsherlock.com/
+[3]: https://play.google.com/store/apps/details?id=com.zappos.android&hl=en
+[4]: https://play.google.com/store/apps/details?id=com.levelup.touiteur&hl=en
+[5]: https://play.google.com/store/apps/details?id=org.videolan.vlc.betav7neon
+[6]: https://play.google.com/store/apps/details?id=com.verge.android

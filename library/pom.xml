@@ -14,15 +14,15 @@
     </parent>
 
     <properties>
-        <android.platform.sdk>15</android.platform.sdk>
-        <android.platform.version>4.0.1.2</android.platform.version>
+        <android.platform.sdk>16</android.platform.sdk>
+        <android.platform.version>4.1.1.4</android.platform.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.google.android</groupId>
             <artifactId>android</artifactId>
-            <version>4.0.1.2</version>
+            <version>4.1.1.4</version>
             <scope>provided</scope>
         </dependency>
 
@@ -46,15 +46,15 @@
 
         <dependency>
             <groupId>com.actionbarsherlock</groupId>
-            <artifactId>library</artifactId>
-            <version>4.1.0</version>
+            <artifactId>actionbarsherlock</artifactId>
+            <version>4.2.0</version>
             <type>apklib</type>
         </dependency>
 
         <dependency>
             <groupId>com.actionbarsherlock</groupId>
-            <artifactId>library</artifactId>
-            <version>4.1.0</version>
+            <artifactId>actionbarsherlock</artifactId>
+            <version>4.2.0</version>
             <type>jar</type>
             <scope>provided</scope>
         </dependency>

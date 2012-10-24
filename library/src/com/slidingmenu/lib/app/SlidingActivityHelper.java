@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-
 import com.slidingmenu.lib.R;
 import com.slidingmenu.lib.SlidingMenu;
 
@@ -45,17 +44,16 @@ public class SlidingActivityHelper {
 		int background = a.getResourceId(0, 0);
 
 		if (mEnableSlide) {
-			mSlidingMenu.setFitsSysWindows(true);
 			// move everything into the SlidingMenu
 			ViewGroup decor = (ViewGroup) mActivity.getWindow().getDecorView();
 			ViewGroup decorChild = (ViewGroup) decor.getChildAt(0);
 			// save ActionBar themes that have transparent assets
 			decorChild.setBackgroundResource(background);
 			decor.removeView(decorChild);
-			mSlidingMenu.setViewAbove(decorChild);
+			mSlidingMenu.setContent(decorChild);
 			decor.addView(mSlidingMenu);
 		} else {
-			// take the above view out of 
+			// take the above view out of
 			ViewGroup parent = (ViewGroup) mViewAbove.getParent();
 			if (parent != null) {
 				parent.removeView(mViewAbove);
@@ -64,8 +62,8 @@ public class SlidingActivityHelper {
 			if (mViewAbove.getBackground() == null) {
 				mViewAbove.setBackgroundResource(background);
 			}
-			mSlidingMenu.setViewAbove(mViewAbove);
-			parent.addView(mSlidingMenu, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+			mSlidingMenu.setContent(mViewAbove);
+			parent.addView(mSlidingMenu, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 		}
 	}
 
@@ -79,7 +77,7 @@ public class SlidingActivityHelper {
 		View v;
 		if (mSlidingMenu != null) {
 			v = mSlidingMenu.findViewById(id);
-			if (v != null) 
+			if (v != null)
 				return v;
 		}
 		return null;
@@ -97,7 +95,7 @@ public class SlidingActivityHelper {
 
 	public void setBehindContentView(View v, LayoutParams params) {
 		mViewBehind = v;
-		mSlidingMenu.setViewBehind(mViewBehind);
+		mSlidingMenu.setMenu(mViewBehind);
 	}
 
 	public SlidingMenu getSlidingMenu() {
@@ -120,7 +118,7 @@ public class SlidingActivityHelper {
 		mSlidingMenu.showBehind();
 	}
 
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && mSlidingMenu.isBehindShowing()) {
 			showAbove();
 			return true;
