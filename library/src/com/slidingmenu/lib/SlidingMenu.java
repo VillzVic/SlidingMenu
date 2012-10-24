@@ -18,8 +18,8 @@ public class SlidingMenu extends RelativeLayout {
 	public static final int TOUCHMODE_MARGIN = 0;
 	public static final int TOUCHMODE_FULLSCREEN = 1;
 
-	private CustomViewAbove mViewAbove;
-	private CustomViewBehind mViewBehind;
+	public CustomViewAbove mViewAbove;
+	public CustomViewBehind mViewBehind;
 	private OnOpenListener mOpenListener;
 	private OnCloseListener mCloseListener;
 
