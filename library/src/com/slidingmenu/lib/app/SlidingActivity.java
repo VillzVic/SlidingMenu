@@ -9,7 +9,8 @@ import com.slidingmenu.lib.SlidingMenu;
 
 public class SlidingActivity extends RoboSherlockActivity implements SlidingActivityBase {
 
-	private SlidingActivityHelper mHelper;
+    private SlidingActivityHelper mHelper;
+    private boolean mShowAboveOnBackPressed;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -80,11 +81,22 @@ public class SlidingActivity extends RoboSherlockActivity implements SlidingActi
 		mHelper.setSlidingActionBarEnabled(b);
 	}
 
-	@Override
-	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		boolean b = mHelper.onKeyUp(keyCode, event);
-		if (b) return b;
-		return super.onKeyUp(keyCode, event);
-	}
+    /**
+     * Default true; if set, pressing back while the menu is shown will toggle the menu and the
+     * event will be consumed.
+     * @param b
+     */
+    protected void setShowAboveOnBackPressed(boolean b) {
+        mShowAboveOnBackPressed = b;
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (mShowAboveOnBackPressed) {
+            boolean b = mHelper.onKeyUp(keyCode, event);
+            if (b) return b;
+        }
+        return super.onKeyUp(keyCode, event);
+    }
 
 }
