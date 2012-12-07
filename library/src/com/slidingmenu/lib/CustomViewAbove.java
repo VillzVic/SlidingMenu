@@ -5,21 +5,34 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v4.view.*;
+import android.support.v4.view.KeyEventCompat;
+import android.support.v4.view.MotionEventCompat;
+import android.support.v4.view.VelocityTrackerCompat;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewConfigurationCompat;
 import android.util.AttributeSet;
 import android.util.FloatMath;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.*;
+import android.view.FocusFinder;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.SoundEffectConstants;
+import android.view.VelocityTracker;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
-import com.slidingmenu.lib.SlidingMenu.OnCloseListener;
+
+//import com.slidingmenu.lib.SlidingMenu.OnCloseListener;
 import com.slidingmenu.lib.SlidingMenu.OnClosedListener;
-import com.slidingmenu.lib.SlidingMenu.OnOpenListener;
+//import com.slidingmenu.lib.SlidingMenu.OnOpenListener;
 import com.slidingmenu.lib.SlidingMenu.OnOpenedListener;
 
 public class CustomViewAbove extends ViewGroup {
@@ -82,14 +95,14 @@ public class CustomViewAbove extends ViewGroup {
 
     private boolean mLastTouchAllowed = false;
     private final int mSlidingMenuThreshold = 10;
-    public CustomViewBehind mCustomViewBehind;
+    private CustomViewBehind mCustomViewBehind;
     private boolean mEnabled = true;
 
     private OnPageChangeListener mOnPageChangeListener;
     private OnPageChangeListener mInternalPageChangeListener;
 
-    private OnCloseListener mCloseListener;
-    private OnOpenListener mOpenListener;
+    //	private OnCloseListener mCloseListener;
+//	private OnOpenListener mOpenListener;
     private OnClosedListener mClosedListener;
     private OnOpenedListener mOpenedListener;
 
@@ -269,15 +282,15 @@ public class CustomViewAbove extends ViewGroup {
     public void setOnPageChangeListener(OnPageChangeListener listener) {
         mOnPageChangeListener = listener;
     }
+    /*
+        public void setOnOpenListener(OnOpenListener l) {
+            mOpenListener = l;
+        }
 
-    public void setOnOpenListener(OnOpenListener l) {
-        mOpenListener = l;
-    }
-
-    public void setOnCloseListener(OnCloseListener l) {
-        mCloseListener = l;
-    }
-
+        public void setOnCloseListener(OnCloseListener l) {
+            mCloseListener = l;
+        }
+    */
     public void setOnOpenedListener(OnOpenedListener l) {
         mOpenedListener = l;
     }
@@ -532,8 +545,8 @@ public class CustomViewAbove extends ViewGroup {
         final int height = b - t;
 
         int contentLeft = getChildLeft(1);
-        float percentOpen = getPercentOpen();
-        int offset = (int) (mScrollX * (1 - mScrollScale));
+//		float percentOpen = getPercentOpen();
+//		int offset = (int) (mScrollX * (1 - mScrollScale));
         mMenu.layout(0, 0, width, height);
         mContent.layout(contentLeft, 0, contentLeft + width, height);
     }
@@ -698,6 +711,7 @@ public class CustomViewAbove extends ViewGroup {
                 final int activePointerId = mActivePointerId;
                 if (activePointerId == INVALID_POINTER)
                     break;
+
                 final int pointerIndex = MotionEventCompat.findPointerIndex(ev, activePointerId);
                 if(pointerIndex >= 0){
                     final float x = MotionEventCompat.getX(ev, pointerIndex);
@@ -718,7 +732,7 @@ public class CustomViewAbove extends ViewGroup {
 
             case MotionEvent.ACTION_DOWN:
                 mActivePointerId = ev.getAction() & ((Build.VERSION.SDK_INT >= 8) ? MotionEvent.ACTION_POINTER_INDEX_MASK :
-                        MotionEvent.ACTION_POINTER_ID_MASK);
+                        MotionEvent.ACTION_POINTER_INDEX_MASK);
                 Log.v(TAG, "active pointer id : " + mActivePointerId);
                 mLastMotionX = mInitialMotionX = MotionEventCompat.getX(ev, mActivePointerId);
                 mLastMotionY = MotionEventCompat.getY(ev, mActivePointerId);
@@ -924,6 +938,26 @@ public class CustomViewAbove extends ViewGroup {
 
         if (mSelectorEnabled)
             onDrawMenuSelector(canvas, getPercentOpen());
+    }
+
+    /**
+     * Pads our content window so that it fits within the system windows.
+     * @param insets The insets by which we need to offset our view.
+     * @return True since we handled the padding change.
+     */
+    @Override
+    protected boolean fitSystemWindows(Rect insets) {
+
+        if (mContent != null) {
+            int leftPadding = mContent.getPaddingLeft() + insets.left;
+            int rightPadding = mContent.getPaddingRight() + insets.right;
+            int topPadding = insets.top;
+            int bottomPadding = insets.bottom;
+            mContent.setPadding(leftPadding, topPadding, rightPadding, bottomPadding);
+            return true;
+        }
+
+        return super.fitSystemWindows(insets);
     }
 
     @Override
