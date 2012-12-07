@@ -297,6 +297,14 @@ public class SlidingMenu extends RelativeLayout {
 		mViewAbove.setScrollScale(f);
 	}
 
+    public boolean getBehindHasNoParallax() {
+        return mViewAbove.getHasNoParallax();
+    }
+
+    public void setBehindHasNoParallax(boolean b) {
+        mViewAbove.setHasNoParallax(b);
+    }
+
 	public void setBehindCanvasTransformer(CanvasTransformer t) {
 		mViewBehind.setCanvasTransformer(t);
 	}
