@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockFragmentActivity;
 import com.slidingmenu.lib.SlidingMenu;
+import roboguice.activity.RoboFragmentActivity;
 
-public class SlidingFragmentActivity extends RoboSherlockFragmentActivity implements SlidingActivityBase {
+public class SlidingFragmentActivity extends RoboFragmentActivity implements SlidingActivityBase {
 
     private SlidingActivityHelper mHelper;
 

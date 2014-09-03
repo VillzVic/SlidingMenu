@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.slidingmenu</groupId>
     <artifactId>slidingmenu-lib</artifactId>
-    <version>1.1.9</version>
+    <version>1.1.9-ROBO</version>
     <name>Sliding Menu</name>
     <packaging>apklib</packaging>
 
@@ -27,9 +27,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.rtyley</groupId>
-            <artifactId>roboguice-sherlock</artifactId>
-            <version>1.4</version>
+            <groupId>org.roboguice</groupId>
+            <artifactId>roboguice</artifactId>
+            <version>2.0</version>
         </dependency>
 
         <dependency>
@@ -44,21 +44,6 @@
             <version>11</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.actionbarsherlock</groupId>
-            <artifactId>actionbarsherlock</artifactId>
-            <version>4.2.0</version>
-            <type>apklib</type>
-        </dependency>
-
-        <!--<dependency>-->
-            <!--<groupId>com.actionbarsherlock</groupId>-->
-            <!--<artifactId>actionbarsherlock</artifactId>-->
-            <!--<version>4.2.0</version>-->
-            <!--<type>jar</type>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
-
     </dependencies>
 
     <build>
@@ -67,7 +52,7 @@
             <plugin>
                 <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                 <artifactId>android-maven-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.6.0</version>
                 <extensions>true</extensions>
                 <configuration>
                     <sdk>

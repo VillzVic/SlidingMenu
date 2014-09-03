@@ -5,10 +5,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ListView;
-import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockListActivity;
 import com.slidingmenu.lib.SlidingMenu;
+import roboguice.activity.RoboListActivity;
 
-public class SlidingListActivity extends RoboSherlockListActivity implements SlidingActivityBase {
+public class SlidingListActivity extends RoboListActivity implements SlidingActivityBase {
 
     private SlidingActivityHelper mHelper;
 
