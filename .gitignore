@@ -16,3 +16,8 @@ library/gen-external-apklibs
 .metadata/
 .metadata
 *.project
+
+/build
+/library/build
+.idea
+.gradle

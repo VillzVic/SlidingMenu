@@ -1,0 +1,77 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.12.2'
+        classpath 'com.github.dcendents:android-maven-plugin:1.1'
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        credentials {
+            username localMavenUser
+            password localMavenPassword
+        }
+        url localMavenUrl
+    }
+}
+
+group = 'com.slidingmenu'
+version = '1.1.9'
+
+apply plugin: 'com.android.library'
+apply plugin: 'android-maven'
+
+android {
+    compileSdkVersion 20
+    buildToolsVersion "20.0.0"
+
+    defaultConfig {
+        applicationId ""
+        minSdkVersion 15
+        targetSdkVersion 20
+        versionCode 1
+        versionName "1.0"
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+    }
+}
+
+dependencies {
+    compile 'org.roboguice:roboguice:2.0'
+    compile 'com.google.android.maps:maps:15_r2'
+    compile 'com.android.support:support-v4:20.0.0'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.artifactId = 'slidingmenu-lib-robo-aar'
+            repository(url: localMavenUrl) {
+                authentication(userName: localMavenUser, password: localMavenPassword)
+            }
+            snapshotRepository(url: localMavenSnapshotUrl) {
+                authentication(userName: localMavenUser, password: localMavenPassword)
+            }
+        }
+    }
+}
+
+install {
+    repositories {
+        mavenInstaller {
+            pom.artifactId = 'slidingmenu-lib-robo-aar'
+        }
+    }
+}
